@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SummariFi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>
+    :root {
+      --blue: #375A9E;
+      --teal: #41C4B6;
+      --offwhite: #F9FAFB;
+      --textgray: #1A1A1A;
+      --radius: 18px;
+      --shadow: 0 4px 24px rgba(55,90,158,0.08);
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(120deg, #f9fafb 60%, #eaf3ff 100%);
+      color: var(--textgray);
+      font-family: 'Inter', 'DM Sans', Arial, sans-serif;
+      min-height: 100vh;
+      transition: background 0.8s;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 16px 0 16px;
+    }
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 56px;
+      margin-bottom: 72px;
+      margin-top: 20px;
+      background: linear-gradient(120deg, #f9fafb 60%, #eaf3ff 100%);
+      border-radius: 32px;
+      box-shadow: 0 8px 40px rgba(55,90,158,0.18);
+      padding: 48px 32px 48px 32px;
+      min-height: 320px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .hero.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      min-width: 180px;
+    }
+    .logo-img {
+      width: 96px;
+      height: 96px;
+      border-radius: 24px;
+      box-shadow: 0 6px 32px rgba(55,90,158,0.10);
+      background: #fff;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+    .logo-text {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--blue);
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 1px;
+    }
+    .hero-content {
+      flex: 2 1 400px;
+      min-width: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+    }
+    .headline {
+      font-size: 3.1rem;
+      font-weight: 800;
+      margin-bottom: 0;
+      color: var(--textgray);
+      line-height: 1.1;
+      letter-spacing: -1px;
+    }
+    .subheadline {
+      font-size: 1.25rem;
+      color: var(--blue);
+      margin-bottom: 18px;
+      font-weight: 500;
+      max-width: 480px;
+    }
+    .cta-btn {
+      background: linear-gradient(90deg, var(--blue), var(--teal));
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 14px 40px;
+      border: none;
+      border-radius: 24px;
+      box-shadow: 0 4px 24px rgba(55,90,158,0.12);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: 8px;
+    }
+    .cta-btn:hover {
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+      transform: translateY(-2px) scale(1.03);
+    }
+    .how-it-works {
+      margin: 28px 0 48px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+      text-align: center;
+    }
+    .step-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 24px rgba(55,90,158,0.16);
+      padding: 32px 28px;
+      flex: 1 1 220px;
+      min-width: 220px;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+      transition: box-shadow 0.2s, transform 0.2s;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .step-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .step-card:hover {
+      box-shadow: 0 8px 32px rgba(55,90,158,0.22);
+      transform: translateY(-6px) scale(1.03);
+    }
+    .step-icon {
+      font-size: 2.5rem;
+      color: var(--teal);
+      background: var(--offwhite);
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 8px rgba(65,196,182,0.08);
+    }
+    .step-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--blue);
+    }
+    .waitlist-section {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 24px rgba(55,90,158,0.16);
+      padding: 40px 28px 18px 28px;
+      margin: 56px auto 36px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .waitlist-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 18px;
+    }
+    .waitlist-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .waitlist-form input, .waitlist-form select {
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #e0e6ed;
+      font-size: 1rem;
+      font-family: inherit;
+      background: var(--offwhite);
+      color: var(--textgray);
+      outline: none;
+      transition: border 0.2s;
+    }
+    .waitlist-form input:focus, .waitlist-form select:focus {
+      border: 1.5px solid var(--teal);
+    }
+    .waitlist-form button {
+      margin-top: 8px;
+      background: linear-gradient(90deg, var(--blue), var(--teal));
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 12px 0;
+      border: none;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .waitlist-form button:hover {
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+      transform: translateY(-2px) scale(1.03);
+    }
+    footer {
+      background: var(--offwhite);
+      padding: 18px 0 18px 0;
+      text-align: center;
+      color: #7a7a7a;
+      font-size: 1rem;
+      border-top: 1px solid #e0e6ed;
+    }
+    .footer-links {
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+    }
+    .footer-icon {
+      width: 36px;
+      height: auto;
+      aspect-ratio: 1/1;
+      display: inline-block;
+      vertical-align: middle;
+      filter: grayscale(0.2) brightness(0.95);
+      transition: filter 0.2s, transform 0.2s;
+      border-radius: 6px;
+      object-fit: contain;
+    }
+    .footer-icon:hover {
+      filter: grayscale(0) brightness(1.1) drop-shadow(0 2px 8px #41C4B633);
+      transform: scale(1.08) translateY(-2px);
+    }
+    .footer-links a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer-links a:hover {
+      color: var(--teal);
+    }
+    @media (max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+        text-align: center;
+        padding: 32px 8vw 32px 8vw;
+      }
+      .hero-content {
+        width: 100%;
+        align-items: center;
+        display: block;
+      }
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 18px 4vw 0 4vw;
+      }
+      .hero {
+        gap: 18px;
+      }
+      .headline {
+        font-size: 2rem;
+      }
+      .how-it-works {
+        gap: 18px;
+      }
+      .step-card {
+        padding: 22px 10px;
+      }
+      .waitlist-section {
+        padding: 24px 8px 18px 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero" id="hero-section">
+      <div class="logo">
+        <img src="logo.png" alt="SummariFi Logo" class="logo-img" style="width:64px;height:64px;border-radius:16px;box-shadow:0 4px 24px rgba(55,90,158,0.08);background:#fff;object-fit:contain;" />
+        <span class="logo-text">SummariFi</span>
+      </div>
+      <div class="hero-content">
+        <div class="headline">Earnings Calls, Summarized by AI.</div>
+        <div class="subheadline">Cut through the noise. Upload any call. Get an actionable TL;DR + sentiment signal in seconds.</div>
+        <button class="cta-btn" onclick="document.getElementById('waitlist').scrollIntoView({behavior: 'smooth'})">Join the Waitlist!</button>
+      </div>
+    </section>
+
+    <section class="how-it-works" id="how-section">
+      <div class="step-card">
+        <div class="step-icon">📤</div>
+        <div class="step-title">Upload a transcript</div>
+        <div>Drag & drop or upload any earnings call transcript.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">🤖</div>
+        <div class="step-title">AI generates summary + sentiment</div>
+        <div>LLMs analyze the call, extract key points, and assess sentiment.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">💡</div>
+        <div class="step-title">Spot insights, act fast</div>
+        <div>Get actionable TL;DRs and trading signals in seconds.</div>
+      </div>
+    </section>
+
+    <section class="waitlist-section" id="waitlist">
+      <div class="waitlist-title">Join the Waitlist!</div>
+      <div style="width:100%;max-width:950px;min-height:600px;display:flex;justify-content:center;">
+        <iframe data-tally-src="https://tally.so/r/3qMDbO" loading="lazy" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0" title="SummariFi Waitlist" style="border-radius:12px;box-shadow:0 4px 24px rgba(55,90,158,0.08);width:100%;max-width:900px;"></iframe>
+      </div>
+      <script>if(!document.querySelector('script[src^="https://tally.so/widgets/embed.js"]')){var d=document,s=d.createElement('script');s.src='https://tally.so/widgets/embed.js';s.defer=true;d.body.appendChild(s);}</script>
+    </section>
+  </div>
+  <footer>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/summari_fi/" target="_blank" rel="noopener" title="Instagram">
+        <img src="insta.png" alt="Instagram" class="footer-icon">
+      </a>
+      <a href="https://x.com/SummariFi" target="_blank" rel="noopener" title="X (Twitter)">
+        <img src="x.png" alt="X (Twitter)" class="footer-icon">
+      </a>
+      <a href="mailto:summarifi@gmail.com" title="Email">
+        <img src="mail.png" alt="Email" class="footer-icon" />
+      </a>
+      <a href="tel:6303248532" title="Phone">
+        <img src="phone.png" alt="Phone" class="footer-icon" />
+      </a>
+      <a href="https://summarifi.carrd.co" target="_blank" rel="noopener" style="font-size:1.08em;">
+        Cardd
+      </a>
+    </div>
+  </footer>
+  <button id="scrollTopBtn" title="Back to top">↑</button>
+  <script>
+    // Fade-in effect on load
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.style.opacity = 0;
+      document.body.style.transition = 'opacity 0.8s';
+      setTimeout(function() { document.body.style.opacity = 1; }, 100);
+
+      // Fade in hero and step cards
+      setTimeout(function() {
+        document.querySelector('.hero').classList.add('visible');
+        document.querySelectorAll('.step-card').forEach(function(card, i) {
+          setTimeout(function() { card.classList.add('visible'); }, 200 + i * 120);
+        });
+      }, 200);
+    });
+
+    // Scroll to top button
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        scrollBtn.style.display = 'block';
+      } else {
+        scrollBtn.style.display = 'none';
+      }
+    });
+    scrollBtn.onclick = function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+  </script>
+</body>
+</html>
