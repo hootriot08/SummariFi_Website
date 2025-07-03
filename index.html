@@ -3,390 +3,822 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SummariFi</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <title>SummariFi - Empowering Everyday Investors with Quant Intelligence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="logo.png">
   <style>
     :root {
-      --blue: #375A9E;
-      --teal: #41C4B6;
-      --offwhite: #F9FAFB;
-      --textgray: #1A1A1A;
-      --radius: 18px;
-      --shadow: 0 4px 24px rgba(55,90,158,0.08);
+      --primary: #3B82F6;
+      --primary-dark: #1D4ED8;
+      --secondary: #8B5CF6;
+      --accent: #06B6D4;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --dark: #0F172A;
+      --gray-50: #F8FAFC;
+      --gray-100: #F1F5F9;
+      --gray-200: #E2E8F0;
+      --gray-300: #CBD5E1;
+      --gray-400: #94A3B8;
+      --gray-500: #64748B;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1E293B;
+      --gray-900: #0F172A;
+      --radius: 12px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
     }
-    html, body {
+
+    * {
       margin: 0;
       padding: 0;
-      background: linear-gradient(120deg, #f9fafb 60%, #eaf3ff 100%);
-      color: var(--textgray);
-      font-family: 'Inter', 'DM Sans', Arial, sans-serif;
-      min-height: 100vh;
-      transition: background 0.8s;
+      box-sizing: border-box;
     }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--gray-800);
+      background: var(--gray-50);
+      overflow-x: hidden;
+    }
+
     .container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 40px 16px 0 16px;
+      padding: 0 24px;
     }
-    .hero {
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-200);
+      z-index: 1000;
+      padding: 16px 0;
+    }
+
+    .header-content {
       display: flex;
-      flex-wrap: wrap;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      gap: 56px;
-      margin-bottom: 72px;
-      margin-top: 20px;
-      background: linear-gradient(120deg, #f9fafb 60%, #eaf3ff 100%);
-      border-radius: 32px;
-      box-shadow: 0 8px 40px rgba(55,90,158,0.18);
-      padding: 48px 32px 48px 32px;
-      min-height: 320px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
     }
-    .hero.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+
     .logo {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 18px;
-      min-width: 180px;
-    }
-    .logo-img {
-      width: 96px;
-      height: 96px;
-      border-radius: 24px;
-      box-shadow: 0 6px 32px rgba(55,90,158,0.10);
-      background: #fff;
-      object-fit: contain;
-      margin-bottom: 8px;
-    }
-    .logo-text {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--blue);
-      font-family: 'DM Sans', sans-serif;
-      letter-spacing: 1px;
-    }
-    .hero-content {
-      flex: 2 1 400px;
-      min-width: 320px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      gap: 18px;
-    }
-    .headline {
-      font-size: 3.1rem;
-      font-weight: 800;
-      margin-bottom: 0;
-      color: var(--textgray);
-      line-height: 1.1;
-      letter-spacing: -1px;
-    }
-    .subheadline {
-      font-size: 1.25rem;
-      color: var(--blue);
-      margin-bottom: 18px;
-      font-weight: 500;
-      max-width: 480px;
-    }
-    .cta-btn {
-      background: linear-gradient(90deg, var(--blue), var(--teal));
-      color: #fff;
-      font-size: 1.1rem;
+      gap: 12px;
       font-weight: 700;
-      padding: 14px 40px;
-      border: none;
-      border-radius: 24px;
-      box-shadow: 0 4px 24px rgba(55,90,158,0.12);
-      cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-      margin-top: 8px;
+      font-size: 1.5rem;
+      color: var(--primary);
     }
-    .cta-btn:hover {
-      background: linear-gradient(90deg, var(--teal), var(--blue));
-      transform: translateY(-2px) scale(1.03);
+
+    .logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
     }
-    .how-it-works {
-      margin: 28px 0 48px 0;
+
+    .nav {
       display: flex;
-      flex-wrap: wrap;
       gap: 32px;
-      justify-content: center;
-      text-align: center;
-    }
-    .step-card {
-      background: #fff;
-      border-radius: var(--radius);
-      box-shadow: 0 4px 24px rgba(55,90,158,0.16);
-      padding: 32px 28px;
-      flex: 1 1 220px;
-      min-width: 220px;
-      max-width: 320px;
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      text-align: center;
-      gap: 18px;
-      transition: box-shadow 0.2s, transform 0.2s;
-      opacity: 0;
-      transform: translateY(30px);
     }
-    .step-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
-    }
-    .step-card:hover {
-      box-shadow: 0 8px 32px rgba(55,90,158,0.22);
-      transform: translateY(-6px) scale(1.03);
-    }
-    .step-icon {
-      font-size: 2.5rem;
-      color: var(--teal);
-      background: var(--offwhite);
-      border-radius: 50%;
-      width: 56px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 8px;
-      box-shadow: 0 2px 8px rgba(65,196,182,0.08);
-    }
-    .step-title {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--blue);
-    }
-    .waitlist-section {
-      background: #fff;
-      border-radius: var(--radius);
-      box-shadow: 0 4px 24px rgba(55,90,158,0.16);
-      padding: 40px 28px 18px 28px;
-      margin: 56px auto 36px auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-    .waitlist-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--blue);
-      margin-bottom: 18px;
-    }
-    .waitlist-form {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .waitlist-form input, .waitlist-form select {
-      padding: 12px 14px;
-      border-radius: 10px;
-      border: 1px solid #e0e6ed;
-      font-size: 1rem;
-      font-family: inherit;
-      background: var(--offwhite);
-      color: var(--textgray);
-      outline: none;
-      transition: border 0.2s;
-    }
-    .waitlist-form input:focus, .waitlist-form select:focus {
-      border: 1.5px solid var(--teal);
-    }
-    .waitlist-form button {
-      margin-top: 8px;
-      background: linear-gradient(90deg, var(--blue), var(--teal));
-      color: #fff;
-      font-size: 1.1rem;
-      font-weight: 600;
-      padding: 12px 0;
-      border: none;
-      border-radius: 10px;
-      box-shadow: var(--shadow);
-      cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .waitlist-form button:hover {
-      background: linear-gradient(90deg, var(--teal), var(--blue));
-      transform: translateY(-2px) scale(1.03);
-    }
-    footer {
-      background: var(--offwhite);
-      padding: 18px 0 18px 0;
-      text-align: center;
-      color: #7a7a7a;
-      font-size: 1rem;
-      border-top: 1px solid #e0e6ed;
-    }
-    .footer-links {
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 18px;
-    }
-    .footer-icon {
-      width: 36px;
-      height: auto;
-      aspect-ratio: 1/1;
-      display: inline-block;
-      vertical-align: middle;
-      filter: grayscale(0.2) brightness(0.95);
-      transition: filter 0.2s, transform 0.2s;
-      border-radius: 6px;
-      object-fit: contain;
-    }
-    .footer-icon:hover {
-      filter: grayscale(0) brightness(1.1) drop-shadow(0 2px 8px #41C4B633);
-      transform: scale(1.08) translateY(-2px);
-    }
-    .footer-links a {
-      color: var(--blue);
+
+    .nav-link {
+      color: var(--gray-600);
       text-decoration: none;
       font-weight: 500;
       transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--gray-700);
+      border: 1px solid var(--gray-200);
+    }
+
+    .btn-secondary:hover {
+      background: var(--gray-50);
+      border-color: var(--gray-300);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
       display: flex;
       align-items: center;
-      gap: 6px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative;
+      overflow: hidden;
     }
-    .footer-links a:hover {
-      color: var(--teal);
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>');
+      opacity: 0.3;
     }
-    @media (max-width: 900px) {
-      .hero {
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: white;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-cta .btn {
+      padding: 16px 32px;
+      font-size: 1rem;
+    }
+
+    /* Why Section */
+    .why-section {
+      padding: 120px 0;
+      background: white;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 1.125rem;
+      color: var(--gray-600);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-top: 60px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 40px 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--gray-200);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 16px;
+    }
+
+    .feature-description {
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Products Section */
+    .products-section {
+      padding: 120px 0;
+      background: var(--gray-50);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-top: 60px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--gray-200);
+      transition: all 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .product-header {
+      padding: 32px 32px 24px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .product-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .product-badge {
+      background: var(--success);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .product-badge.coming-soon {
+      background: var(--warning);
+    }
+
+    .product-description {
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .product-body {
+      padding: 24px 32px 32px;
+    }
+
+    .product-features {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .product-features li {
+      padding: 8px 0;
+      color: var(--gray-700);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .product-features li::before {
+      content: '✓';
+      color: var(--success);
+      font-weight: bold;
+    }
+
+    .product-cta {
+      width: 100%;
+    }
+
+    /* Mission Section */
+    .mission-section {
+      padding: 120px 0;
+      background: white;
+    }
+
+    .mission-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .mission-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 32px;
+    }
+
+    .mission-text {
+      font-size: 1.125rem;
+      color: var(--gray-600);
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    /* App Section */
+    .app-section {
+      padding: 120px 0;
+      background: var(--gray-50);
+    }
+
+    .app-container {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--gray-200);
+    }
+
+    .app-header {
+      padding: 32px;
+      border-bottom: 1px solid var(--gray-200);
+      text-align: center;
+    }
+
+    .app-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 16px;
+    }
+
+    .app-subtitle {
+      color: var(--gray-600);
+      font-size: 1.125rem;
+    }
+
+    .app-iframe {
+      width: 100%;
+      height: 700px;
+      border: none;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--gray-900);
+      color: white;
+      padding: 60px 0 40px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+
+    .footer-description {
+      color: var(--gray-400);
+      max-width: 400px;
+      line-height: 1.6;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .footer-link {
+      color: var(--gray-400);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-link:hover {
+      color: white;
+    }
+
+    .footer-icon {
+      width: 24px;
+      height: 24px;
+      filter: grayscale(1) brightness(0.7);
+      transition: filter 0.2s;
+    }
+
+    .footer-link:hover .footer-icon {
+      filter: grayscale(0) brightness(1);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero-cta {
         flex-direction: column;
         align-items: center;
-        gap: 32px;
+      }
+
+      .features-grid,
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
         text-align: center;
-        padding: 32px 8vw 32px 8vw;
       }
-      .hero-content {
-        width: 100%;
-        align-items: center;
-        display: block;
+
+      .footer-links {
+        justify-content: center;
       }
-    }
-    @media (max-width: 600px) {
-      .container {
-        padding: 18px 4vw 0 4vw;
-      }
-      .hero {
-        gap: 18px;
-      }
-      .headline {
-        font-size: 2rem;
-      }
-      .how-it-works {
-        gap: 18px;
-      }
-      .step-card {
-        padding: 22px 10px;
-      }
-      .waitlist-section {
-        padding: 24px 8px 18px 8px;
+
+      .app-iframe {
+        height: 500px;
       }
     }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in-up {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .animate-delay-1 { animation-delay: 0.1s; }
+    .animate-delay-2 { animation-delay: 0.2s; }
+    .animate-delay-3 { animation-delay: 0.3s; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <section class="hero" id="hero-section">
-      <div class="logo">
-        <img src="logo.png" alt="SummariFi Logo" class="logo-img" style="width:64px;height:64px;border-radius:16px;box-shadow:0 4px 24px rgba(55,90,158,0.08);background:#fff;object-fit:contain;" />
-        <span class="logo-text">SummariFi</span>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <img src="logo.png" alt="SummariFi">
+          SummariFi
+        </div>
+        <nav class="nav">
+          <a href="#products" class="nav-link">Products</a>
+          <a href="#mission" class="nav-link">Mission</a>
+          <a href="#app" class="nav-link">Try Now</a>
+        </nav>
       </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
       <div class="hero-content">
-        <div class="headline">Earnings Calls, Summarized by AI.</div>
-        <div class="subheadline">Cut through the noise. Upload any call. Get an actionable TL;DR + sentiment signal in seconds.</div>
-        <button class="cta-btn" onclick="document.getElementById('waitlist').scrollIntoView({behavior: 'smooth'})">Join the Waitlist!</button>
+        <div class="hero-badge animate-fade-in-up">
+          🔷 Quant Intelligence for Everyone
+        </div>
+        <h1 class="hero-title animate-fade-in-up animate-delay-1">
+          Empowering Everyday Investors with Quant Intelligence
+        </h1>
+        <p class="hero-subtitle animate-fade-in-up animate-delay-2">
+          Turn market chaos into clarity with AI-powered financial tools built for real people.
+        </p>
+        <div class="hero-cta animate-fade-in-up animate-delay-3">
+          <a href="#app" class="btn btn-primary">Try MarketMover</a>
+          <a href="#products" class="btn btn-secondary">Explore Tools</a>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="how-it-works" id="how-section">
-      <div class="step-card">
-        <div class="step-icon">📤</div>
-        <div class="step-title">Upload a transcript</div>
-        <div>Drag & drop or upload any earnings call transcript.</div>
+  <!-- Why Section -->
+  <section class="why-section" id="why">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Why We're Different</h2>
+        <p class="section-subtitle">Built by quants, designed for humans</p>
       </div>
-      <div class="step-card">
-        <div class="step-icon">🤖</div>
-        <div class="step-title">AI generates summary + sentiment</div>
-        <div>LLMs analyze the call, extract key points, and assess sentiment.</div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3 class="feature-title">Quant Tools for Humans</h3>
+          <p class="feature-description">
+            Institutional-grade analytics made usable for everyday decisions. No PhD required.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3 class="feature-title">AI That Explains</h3>
+          <p class="feature-description">
+            Our models don't just analyze — they summarize, explain, and guide your decisions.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3 class="feature-title">Built with Integrity</h3>
+          <p class="feature-description">
+            No paywalls, no noise. Just data-backed, honest signals you can trust.
+          </p>
+        </div>
       </div>
-      <div class="step-card">
-        <div class="step-icon">💡</div>
-        <div class="step-title">Spot insights, act fast</div>
-        <div>Get actionable TL;DRs and trading signals in seconds.</div>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="waitlist-section" id="waitlist">
-      <div class="waitlist-title">Join the Waitlist!</div>
-      <div style="width:100%;max-width:950px;min-height:600px;display:flex;justify-content:center;">
-        <iframe data-tally-src="https://tally.so/r/3qMDbO" loading="lazy" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0" title="SummariFi Waitlist" style="border-radius:12px;box-shadow:0 4px 24px rgba(55,90,158,0.08);width:100%;max-width:900px;"></iframe>
+  <!-- Products Section -->
+  <section class="products-section" id="products">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Our Product Ecosystem</h2>
+        <p class="section-subtitle">Professional-grade tools that grow with your needs</p>
       </div>
-      <script>if(!document.querySelector('script[src^="https://tally.so/widgets/embed.js"]')){var d=document,s=d.createElement('script');s.src='https://tally.so/widgets/embed.js';s.defer=true;d.body.appendChild(s);}</script>
-    </section>
-  </div>
-  <footer>
-    <div class="footer-links">
-      <a href="https://www.instagram.com/summari_fi/" target="_blank" rel="noopener" title="Instagram">
-        <img src="insta.png" alt="Instagram" class="footer-icon">
-      </a>
-      <a href="https://x.com/SummariFi" target="_blank" rel="noopener" title="X (Twitter)">
-        <img src="x.png" alt="X (Twitter)" class="footer-icon">
-      </a>
-      <a href="mailto:summarifi@gmail.com" title="Email">
-        <img src="mail.png" alt="Email" class="footer-icon" />
-      </a>
-      <a href="tel:6303248532" title="Phone">
-        <img src="phone.png" alt="Phone" class="footer-icon" />
-      </a>
-      <a href="https://summarifi.carrd.co" target="_blank" rel="noopener" style="font-size:1.08em;">
-        Cardd
-      </a>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-header">
+            <h3 class="product-title">
+              📈 MarketMover
+              <span class="product-badge" style="background:#ECFDF5;color:#10B981;">Live</span>
+            </h3>
+            <p class="product-description">AI-powered stock analysis with real-time data and confidence scoring.</p>
+          </div>
+          <div class="product-body">
+            <ul class="product-features">
+              <li>LLaMA 3 AI-powered analysis</li>
+              <li>Real-time stock data & indicators</li>
+              <li>Professional confidence scoring</li>
+              <li>Smart news filtering & sentiment</li>
+            </ul>
+            <a href="#app" class="btn btn-primary product-cta" style="background:linear-gradient(90deg,#3B82F6,#8B5CF6);min-height:44px;">Try MarketMover</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-header">
+            <h3 class="product-title">
+              💡 Quantix – Find Your Niche
+              <span class="product-badge" style="background:#ECFDF5;color:#10B981;">Live</span>
+            </h3>
+            <p class="product-description">Discover your investing identity with swipeable AI-powered stock discovery and community forums.</p>
+          </div>
+          <div class="product-body">
+            <ul class="product-features">
+              <li>Tinder-style stock discovery</li>
+              <li>Personalized match scores</li>
+              <li>Reddit-style niche forums</li>
+              <li>Interactive charts</li>
+            </ul>
+            <a href="#" class="btn btn-primary product-cta" style="background:linear-gradient(90deg,#0066CC,#8B5CF6);min-height:44px;">Launch Quantix</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-header">
+            <h3 class="product-title">
+              📞 Earnings Summarizer
+              <span class="product-badge coming-soon" style="background:#FEF3C7;color:#F59E0B;">Soon</span>
+            </h3>
+            <p class="product-description">Upload transcripts, get instant TL;DR + sentiment analytics.</p>
+          </div>
+          <div class="product-body">
+            <ul class="product-features">
+              <li>AI-powered transcript analysis</li>
+              <li>Key insights extraction</li>
+              <li>Sentiment scoring</li>
+              <li>Actionable trading signals</li>
+            </ul>
+            <a href="#app" class="btn btn-secondary product-cta" style="min-height:44px;">Coming Soon</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="mission-section" id="mission">
+    <div class="container">
+      <div class="mission-content">
+        <h2 class="mission-title">We're Building the Bloomberg Terminal for the Rest of Us</h2>
+        <p class="mission-text">
+          SummariFi is a mission-driven collective of quant nerds, developers, and designers building intelligent tools to level the playing field. From LLMs that read earnings calls to sentiment-aware stock analyzers, we're here to make markets <strong>understandable, not overwhelming</strong>.
+          <br><br>
+          We believe that financial clarity should be a right, not a privilege. That's why we combine the power of quantitative models, AI reasoning, and intuitive design to make markets less intimidating and more empowering for the retail investor.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- App Section -->
+  <section class="app-section" id="app">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Ready to Invest Smarter?</h2>
+        <p class="section-subtitle">Start using MarketMover today — no account required</p>
+      </div>
+      <div class="app-container">
+        <div class="app-header">
+          <h3 class="app-title">MarketMover</h3>
+          <p class="app-subtitle">AI-powered stock analysis with professional-grade insights</p>
+        </div>
+        <iframe src="http://localhost:5177" class="app-iframe" title="MarketMover Application"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <div class="footer-brand">
+            <img src="logo.png" alt="SummariFi">
+            SummariFi
+          </div>
+          <p class="footer-description">
+            Empowering everyday investors with quant-driven tools. Making markets understandable, not overwhelming.
+          </p>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.instagram.com/summari_fi/" target="_blank" rel="noopener" class="footer-link">
+            <img src="insta.png" alt="Instagram" class="footer-icon">
+            Instagram
+          </a>
+          <a href="https://x.com/SummariFi" target="_blank" rel="noopener" class="footer-link">
+            <img src="x.png" alt="X (Twitter)" class="footer-icon">
+            Twitter
+          </a>
+          <a href="mailto:summarifi@gmail.com" class="footer-link">
+            <img src="mail.png" alt="Email" class="footer-icon">
+            Email
+          </a>
+          <a href="tel:6303248532" class="footer-link">
+            <img src="phone.png" alt="Phone" class="footer-icon">
+            Phone
+          </a>
+        </div>
+      </div>
     </div>
   </footer>
-  <button id="scrollTopBtn" title="Back to top">↑</button>
-  <script>
-    // Fade-in effect on load
-    document.addEventListener('DOMContentLoaded', function() {
-      document.body.style.opacity = 0;
-      document.body.style.transition = 'opacity 0.8s';
-      setTimeout(function() { document.body.style.opacity = 1; }, 100);
 
-      // Fade in hero and step cards
-      setTimeout(function() {
-        document.querySelector('.hero').classList.add('visible');
-        document.querySelectorAll('.step-card').forEach(function(card, i) {
-          setTimeout(function() { card.classList.add('visible'); }, 200 + i * 120);
-        });
-      }, 200);
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
     });
 
-    // Scroll to top button
-    const scrollBtn = document.getElementById('scrollTopBtn');
-    window.addEventListener('scroll', function() {
-      if (window.scrollY > 300) {
-        scrollBtn.style.display = 'block';
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 100) {
+        header.style.background = 'rgba(255, 255, 255, 0.98)';
+        header.style.boxShadow = '0 1px 3px 0 rgb(0 0 0 / 0.1)';
       } else {
-        scrollBtn.style.display = 'none';
+        header.style.background = 'rgba(255, 255, 255, 0.95)';
+        header.style.boxShadow = 'none';
       }
     });
-    scrollBtn.onclick = function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
     };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for animation
+    document.querySelectorAll('.feature-card, .product-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
   </script>
 </body>
 </html>
